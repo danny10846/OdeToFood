@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OdeToFood.Data;
 
 namespace OdeToFood {
     public class Startup {
@@ -14,6 +15,8 @@ namespace OdeToFood {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            //Dependency Inversion, When we request an IRestaurantData Interface, we new up an instange of InMemoryResaurantData
+            services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
             services.AddRazorPages();
             services.AddMvc().AddRazorRuntimeCompilation();
         }
