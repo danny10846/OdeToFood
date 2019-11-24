@@ -20,6 +20,8 @@ namespace OdeToFood.Pages.Restaurants
 
         public void OnGet()
         {
+            //This accesses the appsettings.json global
+            //Message we created
             Message = config["Message"];
         }
     }
