@@ -15,7 +15,8 @@ namespace OdeToFood {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            //Dependency Inversion, When we request an IRestaurantData Interface, we new up an instange of InMemoryResaurantData
+            //Dependency Inversion, When we request an IRestaurantData Interface, we new up an instance of InMemoryResaurantData
+            //Singleton not thread safe, as our InMemoryRestaurantData is dependent on a single List
             services.AddSingleton<IRestaurantData, InMemoryRestaurantData>();
             services.AddRazorPages();
             services.AddMvc().AddRazorRuntimeCompilation();

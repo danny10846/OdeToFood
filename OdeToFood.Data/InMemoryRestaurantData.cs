@@ -21,8 +21,9 @@ namespace OdeToFood.Data {
         /// Get All method we have implemented from the IRestaurantData interface 
         /// </summary>
         /// <returns>Returns a sorted list of restaurants</returns>
-        public IEnumerable<Restaurant> GetAll() {
+        public IEnumerable<Restaurant> GetRestaurantsByName(string name = null) {
             return from r in _restaurants
+                   where string.IsNullOrEmpty(name) || r.Name.StartsWith(name)
                    orderby r.Name
                    select r;
         }

@@ -6,6 +6,15 @@
 
 <h1>Restaurants</h1>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<form method="get" class="example">
+    <!--asp-for works as a two way model binding for SearchTerm. 
+        It means our search text will stay in the search bar -->
+    <input asp-for="SearchTerm" type="text" placeholder="Search.." name="searchTerm">
+    <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+
 <table class="table">
     @foreach(var r in Model.Restaurants) {
     <tr>

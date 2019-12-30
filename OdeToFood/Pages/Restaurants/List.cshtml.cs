@@ -18,6 +18,11 @@ namespace OdeToFood.Pages.Restaurants
         private readonly IConfiguration config;
         private readonly IRestaurantData restaurantData;
 
+        //This attribute makes it so this property can be bound through the html page
+        //Does not support Get by default, makes it two way binding
+        [BindProperty(SupportsGet = true)]
+        //The SearchTerm is the string that will persist in the search bar after we have pressed to search
+        public string SearchTerm { get; set; }
         public string Message { get; set; }
         //Our list of Restaurants 
         public IEnumerable<Restaurant> Restaurants { get; set; }
@@ -32,15 +37,17 @@ namespace OdeToFood.Pages.Restaurants
             this.restaurantData = restaurantData;
         }
         /// <summary>
-        /// This is fired for HTTP get request 
+        /// This is fired for HTTP get request. We can add parameters to this if we wish, and it will check values 
+        /// within the razor pages
         /// </summary>
         public void OnGet()
         {
+            
             //This accesses the appsettings.json global
             //Message we created
             Message = config["Message"];
             //Get our Restaurants from InMemoryRestaurantData
-            Restaurants = restaurantData.GetAll();
+            Restaurants = restaurantData.GetRestaurantsByName(SearchTerm);
         }
     }
 }
