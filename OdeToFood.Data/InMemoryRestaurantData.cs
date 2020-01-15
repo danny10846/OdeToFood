@@ -18,6 +18,18 @@ namespace OdeToFood.Data {
             };
         }
         /// <summary>
+        /// Save this method for when we use a real data source, presumably database.
+        /// </summary>
+        /// <returns></returns>
+        public int Commit() {
+            return 0;
+        }
+
+        public Restaurant GetById(int id) {
+            return _restaurants.SingleOrDefault(r => r.Id == id);
+        }
+
+        /// <summary>
         /// Get All method we have implemented from the IRestaurantData interface 
         /// </summary>
         /// <returns>Returns a sorted list of restaurants</returns>
@@ -26,6 +38,21 @@ namespace OdeToFood.Data {
                    where string.IsNullOrEmpty(name) || r.Name.StartsWith(name)
                    orderby r.Name
                    select r;
+        }
+
+        /// <summary>
+        /// Method to update the restaurant that has been edited by the user on the page
+        /// </summary>
+        /// <param name="updatedRestaurant"></param>
+        /// <returns></returns>
+        public Restaurant Update(Restaurant updatedRestaurant) {
+            var restaurant = _restaurants.SingleOrDefault(r => r.Id == updatedRestaurant.Id);
+            if(restaurant != null) {
+                restaurant.Name = updatedRestaurant.Name;
+                restaurant.Location = updatedRestaurant.Location;
+                restaurant.Cuisine = updatedRestaurant.Cuisine;
+            }
+            return restaurant;
         }
     }
 }

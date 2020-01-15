@@ -16,11 +16,20 @@
 </form>
 
 <table class="table">
-    @foreach(var r in Model.Restaurants) {
+    @foreach(var restaurant in Model.Restaurants) {
     <tr>
-        <td>@r.Name</td>
-        <td>@r.Location</td>
-        <td>@r.Cuisine</td>
+        <td>@restaurant.Name</td>
+        <td>@restaurant.Location</td>
+        <td>@restaurant.Cuisine</td>
+        <td>
+            <!--asp-page and asp-route-resaurantId are the hrefs dealt with in house-->
+            <a class="fa fa-search" asp-page="./Detail" asp-route-restaurantId="@restaurant.Id">
+
+            </a>
+            <a class="fa fa-pencil fa-fw" asp-page="./Edit" asp-route-restaurantId="@restaurant.Id">
+
+            </a>
+        </td>
     </tr>
     }
 </table>
