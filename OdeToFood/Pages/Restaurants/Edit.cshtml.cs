@@ -22,10 +22,18 @@ namespace OdeToFood.Pages.Restaurants {
             this.htmlHelper = htmlHelper;
         }
         //Initially void, we changed to IActionResult so we can return a page given a null Restaurant
-        public IActionResult OnGet(int restaurantId) {
+        //We've made restaurantId nullable, so that we can enter the edit page get method from List page
+        public IActionResult OnGet(int? restaurantId) {
 
             Cuisines = htmlHelper.GetEnumSelectList<CuisineType>();
-            Restaurant = restaurantData.GetById(restaurantId);
+            //If we have an id, find restaurant by id
+            if (restaurantId.HasValue) {
+                Restaurant = restaurantData.GetById(restaurantId.Value);
+            }
+            //Else create a mock restaurant
+            else {
+                Restaurant = new Restaurant();
+            }
             if (Restaurant == null) {
                 return RedirectToPage("./NotFound");
             }
@@ -33,8 +41,16 @@ namespace OdeToFood.Pages.Restaurants {
         }
 
         public IActionResult OnPost() {
-            Restaurant = restaurantData.Update(Restaurant);
-            restaurantData.Commit();
+
+            if (ModelState.IsValid) {
+                Restaurant = restaurantData.Update(Restaurant);
+                restaurantData.Commit();
+                //Post redirect get pattern, allows us to exit from the post page. Anonymous type allows us to pass an object
+                return RedirectToPage("./Detail", new { restaurantId = Restaurant.Id });
+            }
+            //We have to get the cuisines on post again, our application is stateless, have to account for each state of the app            
+            Cuisines = htmlHelper.GetEnumSelectList<CuisineType>();
+
             return Page();
         }
     }

@@ -17,6 +17,13 @@ namespace OdeToFood.Data {
                 new Restaurant{Id = 3, Name="Pete's Burritos", Location="Hasland", Cuisine=CuisineType.Mexican}
             };
         }
+
+        public Restaurant Add(Restaurant newRestaurant) {
+            _restaurants.Add(newRestaurant);
+            newRestaurant.Id = _restaurants.Max(r => r.Id) + 1;
+            return newRestaurant;
+        }
+
         /// <summary>
         /// Save this method for when we use a real data source, presumably database.
         /// </summary>

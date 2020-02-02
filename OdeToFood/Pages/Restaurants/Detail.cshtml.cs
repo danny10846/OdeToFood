@@ -19,6 +19,11 @@ namespace OdeToFood.Pages.Restaurants
             //Inject restaurant data into our constructor
             this.restaurauntData = restaurantData;
         }
+        /// <summary>
+        /// Our OnGet method takes in a restaurantId, which is supplied by the tag helper within our list cshtml
+        /// </summary>
+        /// <param name="restaurantId">We use this param to get the restaurant we require</param>
+        /// <returns></returns>
         public IActionResult OnGet(int restaurantId)
         {
             //Use our restaurantData to use the GetById method with the restaurantId parameter within our html page

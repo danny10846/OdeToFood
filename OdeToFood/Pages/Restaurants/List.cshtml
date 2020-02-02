@@ -23,6 +23,7 @@
         <td>@restaurant.Cuisine</td>
         <td>
             <!--asp-page and asp-route-resaurantId are the hrefs dealt with in house-->
+            <!--Because we are linking to the Detail page, we need to pass in the restaurantId for the OnGet method-->
             <a class="fa fa-search" asp-page="./Detail" asp-route-restaurantId="@restaurant.Id">
 
             </a>
@@ -33,7 +34,7 @@
     </tr>
     }
 </table>
-
+<a asp-page=".\Edit" class="btn btn-primary">Add new</a>
 <div>
     @Model.Message
 </div>
